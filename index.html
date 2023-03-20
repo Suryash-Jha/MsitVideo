@@ -1,108 +1,109 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vishal Rai</title>
-  </head>
-  <body>
 
-    <script>
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      //
-      script.addEventListener("load", function (event) {
-        // Initialize the factory function
-        const meeting = new VideoSDKMeeting();
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal Rai</title>
+</head>
 
-        // Set apikey, meetingId and participant name
-        const apiKey = "9fabcb3b-b758-438e-97ad-afe69fc5022d"; // generated from app.videosdk.live
-        const meetingId = "milkyway";
-        const name = "John Doe";
+<body style="background-color: blanchedalmond;">
 
-        const config = {
-          name: name,
-          apiKey: apiKey,
-          meetingId: meetingId,
+  <script>
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    //
+    script.addEventListener("load", function (event) {
+      // Initialize the factory function
+      const meeting = new VideoSDKMeeting();
 
-          containerId: null,
-          redirectOnLeave: "https://www.videosdk.live/",
+      // Set apikey, meetingId and participant name
+      const apiKey = "9fabcb3b-b758-438e-97ad-afe69fc5022d"; // generated from app.videosdk.live
+      const meetingId = "milkyway";
+      const name = "John Doe";
 
-          micEnabled: true,
-          webcamEnabled: true,
-          participantCanToggleSelfWebcam: true,
-          participantCanToggleSelfMic: true,
+      const config = {
+        name: name,
+        apiKey: apiKey,
+        meetingId: meetingId,
 
-          chatEnabled: true,
-          screenShareEnabled: true,
-          pollEnabled: true,
-          whiteboardEnabled: true,
-          raiseHandEnabled: true,
+        containerId: null,
+        redirectOnLeave: "https://www.videosdk.live/",
 
-          recordingEnabled: true,
-          recordingEnabledByDefault: false,
-          recordingWebhookUrl: "https://www.videosdk.live/callback",
-          recordingAWSDirPath: `/meeting-recordings/${meetingId}/`, // automatically save recording in this s3 path
+        micEnabled: true,
+        webcamEnabled: true,
+        participantCanToggleSelfWebcam: true,
+        participantCanToggleSelfMic: true,
 
-          brandingEnabled: true,
-          brandLogoURL: "https://picsum.photos/200",
-          brandName: "Awesome startup",
-          poweredBy: true,
+        chatEnabled: true,
+        screenShareEnabled: true,
+        pollEnabled: true,
+        whiteboardEnabled: true,
+        raiseHandEnabled: true,
 
-          participantCanLeave: true, // if false, leave button won't be visible
+        recordingEnabled: true,
+        recordingEnabledByDefault: false,
+        recordingWebhookUrl: "https://www.videosdk.live/callback",
+        recordingAWSDirPath: `/meeting-recordings/${meetingId}/`, // automatically save recording in this s3 path
 
-          // Live stream meeting to youtube
-          livestream: {
-            autoStart: true,
-            outputs: [
-              // {
-              //   url: "rtmp://x.rtmp.youtube.com/live2",
-              //   streamKey: "<STREAM KEY FROM YOUTUBE>",
-              // },
-            ],
+        brandingEnabled: true,
+        brandLogoURL: "https://picsum.photos/200",
+        brandName: "Awesome startup",
+        poweredBy: true,
+
+        participantCanLeave: true, // if false, leave button won't be visible
+
+        // Live stream meeting to youtube
+        livestream: {
+          autoStart: true,
+          outputs: [
+            // {
+            //   url: "rtmp://x.rtmp.youtube.com/live2",
+            //   streamKey: "<STREAM KEY FROM YOUTUBE>",
+            // },
+          ],
+        },
+
+        permissions: {
+          askToJoin: false, // Ask joined participants for entry in meeting
+          toggleParticipantMic: true, // Can toggle other participant's mic
+          toggleParticipantWebcam: true, // Can toggle other participant's webcam
+          removeParticipant: true, // Remove other participant from meeting
+          endMeeting: true, // End meeting for all participant
+          drawOnWhiteboard: true, // Can Draw on whiteboard
+          toggleWhiteboard: true, // Can toggle whiteboard
+          toggleRecording: true, // Can toggle recording
+        },
+
+        joinScreen: {
+          visible: true, // Show the join screen ?
+          title: "Daily scrum", // Meeting title
+          meetingUrl: window.location.href, // Meeting joining url
+        },
+
+        pin: {
+          allowed: true, // participant can pin any participant in meeting
+          layout: "SPOTLIGHT", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
+        },
+
+        leftScreen: {
+          // visible when redirect on leave not provieded
+          actionButton: {
+            // optional action button
+            label: "Video SDK Live", // action button label
+            href: "https://videosdk.live/", // action button href
           },
+        },
+      };
 
-          permissions: {
-            askToJoin: false, // Ask joined participants for entry in meeting
-            toggleParticipantMic: true, // Can toggle other participant's mic
-            toggleParticipantWebcam: true, // Can toggle other participant's webcam
-            removeParticipant: true, // Remove other participant from meeting
-            endMeeting: true, // End meeting for all participant
-            drawOnWhiteboard: true, // Can Draw on whiteboard
-            toggleWhiteboard: true, // Can toggle whiteboard
-            toggleRecording: true, // Can toggle recording
-          },
+      meeting.init(config);
+    });
 
-          joinScreen: {
-            visible: true, // Show the join screen ?
-            title: "Daily scrum", // Meeting title
-            meetingUrl: window.location.href, // Meeting joining url
-          },
+    script.src =
+      "https://sdk.videosdk.live/rtc-js-prebuilt/0.1.26/rtc-js-prebuilt.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  </script>
+</body>
 
-          pin: {
-            allowed: true, // participant can pin any participant in meeting
-            layout: "SPOTLIGHT", // meeting layout - GRID | SPOTLIGHT | SIDEBAR
-          },
-
-          leftScreen: {
-            // visible when redirect on leave not provieded
-            actionButton: {
-              // optional action button
-              label: "Video SDK Live", // action button label
-              href: "https://videosdk.live/", // action button href
-            },
-          },
-        };
-
-        meeting.init(config);
-      });
-
-      script.src =
-        "https://sdk.videosdk.live/rtc-js-prebuilt/0.1.26/rtc-js-prebuilt.js";
-      document.getElementsByTagName("head")[0].appendChild(script);
-    </script>
-  </body>
 </html>
